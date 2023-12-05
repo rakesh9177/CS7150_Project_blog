@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>DLQuantization Blog</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a3e40f10-3808-4d76-9772-71463dff306d" class="page sans"><header><h1 class="page-title">DLQuantization Blog</h1><p class="page-description"></p></header><div class="page-body"><h1 id="5055fe3a-aee3-4ecc-8166-2ce1db857aae" class="">Introduction</h1><p id="d3a8d16e-7175-4974-9e6e-8f572df19438" class="">
+</p><p id="5b35acc2-d37c-4a40-8797-81eba1d4e531" class="">Large Language Models (LLMs) based on transformers[6] have taken the world by storm. ChatGPT is one such example. However, with advantages comes the cost. LLMs have high serving costs. For example, GPT-3 has 175B parameters which is 350GB in FP16, while the latest H100 GPU only has 96GB memory, let alone edge devices. Hence, this blog has taken a recently developed method called Activation-aware weight quantization [3]. </p><h1 id="559ce010-2d43-40ab-910b-50c64e389c65" class="">Basics of Quantization</h1><p id="4f9a9f2e-4c58-450a-bc30-75d7b441b9b4" class="">
+</p><ol type="1" id="f6cab9af-b35f-4ea6-8852-a4d9b39cb475" class="numbered-list" start="1"><li><strong>Quantization:</strong> It is the process of constraining an input from a continuous or otherwise large set of values to a discrete set (Figure 1)</li></ol><figure id="26882c0d-7a0f-42f8-8c7b-ef4bc607602e" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled.png"><img style="width:837px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled.png"/></a></figure><p id="e71483fb-caba-4c8e-99d4-d8ae21eecd04" class=""><strong>Figure 1: Quantized signal and Image</strong></p><ol type="1" id="5017b37b-20fb-4e51-8aa4-872e85f0bed5" class="numbered-list" start="2"><li><strong>Numerical Formats (Table 1 )</strong>: BF16 is very popular among the LLM community for standard pretraining. BF16 is known for helping in training stability (supported by a100 NVIDIA GPU). For inference, the models are either quantized in INT8, INT4 or INT3. INT8 has a range from -128 to 127.</li></ol><p id="2664ae82-e8cc-4851-bc47-f3c7308569d6" class=""><strong>Table 1: Details of various commonly used numerical formats ( 1 bit is assigned to sign)</strong></p><table id="e3dfa4d9-712c-4523-b413-ad18ae4b6fdc" class="simple-table"><tbody><tr id="1c22b14a-8ce1-4c91-9e2a-e57cb8f86c2f"><td id=":ZwK" class=""></td><td id="o{Kt" class=""><strong>Bits</strong></td><td id="QzKE" class=""><strong>Exponent</strong></td><td id="YQKl" class=""><strong>Fraction</strong> </td><td id="s@BF" class=""><strong>Memory to store one value</strong></td></tr><tr id="20930fab-0c2b-4ffd-940b-a45ca9b50daa"><td id=":ZwK" class=""><strong>FP32</strong></td><td id="o{Kt" class="">32</td><td id="QzKE" class="">8</td><td id="YQKl" class="">23</td><td id="s@BF" class="">4 bytes</td></tr><tr id="8da4e83b-2d7e-45e7-a72e-dcb7bc6e284f"><td id=":ZwK" class=""><strong>FP16</strong></td><td id="o{Kt" class="">16</td><td id="QzKE" class="">5</td><td id="YQKl" class="">10</td><td id="s@BF" class="">2 bytes</td></tr><tr id="0d9fe1d9-a2a6-4abd-83e4-f6b4c4f5200d"><td id=":ZwK" class=""><strong>BFLOAT16</strong></td><td id="o{Kt" class="">16</td><td id="QzKE" class="">8</td><td id="YQKl" class="">7</td><td id="s@BF" class="">2 bytes</td></tr><tr id="38560f22-8229-43a7-a7fb-c9d56c04f381"><td id=":ZwK" class=""><strong>INT8</strong></td><td id="o{Kt" class="">8</td><td id="QzKE" class="">-/-</td><td id="YQKl" class="">7</td><td id="s@BF" class="">1 byte</td></tr></tbody></table><ol type="1" id="33843296-e773-4bf9-b89a-f99a9e33ba79" class="numbered-list" start="3"><li><strong>Bytes required per parameter:</strong> Table 2 shows the bytes required per parameter during training for 1 billion parameters.</li></ol><table id="02e2b4ad-a562-4b40-8b28-bde2bd0738a6" class="simple-table"><tbody><tr id="1eff91c3-f9f1-41fd-81e2-f3c829f0760f"><td id="ALYe" class="" style="width:349px"></td><td id="|P{:" class="" style="width:349px"><strong>Bytes per parameter</strong></td></tr><tr id="59409e16-3a8f-4338-a80b-8ad2c6117a06"><td id="ALYe" class="" style="width:349px"><strong>Model parameters (Weights)</strong></td><td id="|P{:" class="" style="width:349px">4 </td></tr><tr id="634e797f-0564-45fa-8cb0-b51f066b252a"><td id="ALYe" class="" style="width:349px"><strong>Adam Optimizer (2 states)</strong></td><td id="|P{:" class="" style="width:349px">8</td></tr><tr id="29601edd-95a5-4d3b-b4ec-8d6b2f3f771d"><td id="ALYe" class="" style="width:349px"><strong>Gradients</strong></td><td id="|P{:" class="" style="width:349px">4</td></tr><tr id="be248dca-041a-4903-bd8f-09a046a1e6ae"><td id="ALYe" class="" style="width:349px"><strong>Activations and temp Memory (Variable Size)</strong></td><td id="|P{:" class="" style="width:349px">8</td></tr><tr id="bf81ed90-d03c-4de0-890c-071afe5bea68"><td id="ALYe" class="" style="width:349px"><strong>Total memory per parameter</strong></td><td id="|P{:" class="" style="width:349px">4 bytes + 20 bytes (per parameter)</td></tr><tr id="71838f50-54bc-41f1-a42c-a66d2df8831f"><td id="ALYe" class="" style="width:349px"><strong>Memory for 1 billion parameters at FP32</strong></td><td id="|P{:" class="" style="width:349px">24 bytes * 1 bil = 24 GB</td></tr></tbody></table><ol type="1" id="ef62a3b7-af68-44c8-b210-bd1f05d9a371" class="numbered-list" start="4"><li><strong>Two Complement’s Representation:</strong> The most commonly used numeric data type.<ul id="e97045b5-a9f6-427b-9c98-1ca6ef2bd18d" class="bulleted-list"><li style="list-style-type:disc">n-bit Range: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo separator="true">,</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{n-1}, 2^{n-1}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span></li></ul><ul id="ec50491d-6693-4163-ba53-da50d904bec8" class="bulleted-list"><li style="list-style-type:disc">000…00 represents 0</li></ul><ul id="73610efd-9180-4aa5-b0b5-6b30b8fcee53" class="bulleted-list"><li style="list-style-type:disc">100…00 represents <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-2^{n-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="d1fd2c39-9c14-4d7e-af0e-96367becd3d5" class="bulleted-list"><li style="list-style-type:disc">Generally used to convert either FP32, FP16, or BF16 representation to binary or vice-versa.</li></ul></li></ol><ol type="1" id="77651d15-9033-49e0-bb8e-4042f9fb2ae3" class="numbered-list" start="5"><li><strong>The common choice for quantization in DL networks</strong>: Weights and activations. Quantizing weights leads to a reduction in storage/memory requirements. Methods like linear quantization can also lead to lesser computational costs with the help of integer arithmetic during forward and backward propagation (quantization aware training [7])</li></ol><ol type="1" id="f961a7f1-5659-4a2d-9935-be457675584d" class="numbered-list" start="6"><li><strong>Post-Training Quantization (PTQ) [8]</strong>: It quantizes the weights and activations of the model without necessitating any retraining. It fuses activations into preceding layers wherever possible and requires calibration with a representative dataset to determine optimal quantization parameters for activations. This is used when both memory bandwidth and compute savings are important with CNNs being the typical use case. However, in a low-bit setting, PTQ suffers from large accuracy degradation. </li></ol><ol type="1" id="f52725b7-6b6e-4a8d-a76a-30a36a6e6d4c" class="numbered-list" start="7"><li><strong>Quantization Aware Training (QAT) [8]:</strong> QAT inserts fake quantization to all the weights and activations during the model training process and results in higher inference accuracy than PTQ methods. This is typically used for CNNs, however, the training cost is higher and also needs training data. </li></ol><h1 id="e3c95191-28b8-4b42-a198-471b87162cb1" class="">PTQ Method 1 for LLMs: SmoothQuant</h1><p id="62799568-bd47-4523-a87d-50f092af7eb9" class="">The QAT methods cannot easily scale up to large models like LLMs. Therefore, people usually use PTQ methods to quantize LLMs.</p><h3 id="ef9d292d-ab72-465c-88e0-d2375888fae6" class="">Two settings for LLM Quantization [3]</h3><ol type="1" id="ab234022-81d0-42e6-831a-007b3e6402a8" class="numbered-list" start="1"><li><strong>W8A8 Quantization:</strong> Both activation and weights are quantized to INT8. Industrial standard for CNNs.</li></ol><ol type="1" id="0d8627a4-2cee-464a-b580-7c83f6cdee03" class="numbered-list" start="2"><li><strong>W4A16 Quantization:</strong> Weights are quantized to INT4. This setting leads to a reduction in hardware barrier (requiring a smaller memory size) and also speeds up the token generation (remedying memory-bound workload)</li></ol><figure id="9c2951a4-9006-4776-83ee-d5ad0398d964" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%201.png"><img style="width:420px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%201.png"/></a></figure><p id="0fcbe16e-efe4-42c7-bffd-de74f02bdc3c" class=""><strong>Figure 2 [2]: Accuracy degradation with W8A8 quantization with an increase in the number of parameters</strong></p><p id="5df2b86e-da05-4f64-bf9a-5815a9178574" class="">
+</p><p id="a9d7bb8a-9a4b-4bca-9dc1-1afa7a58dc7f" class="">From Figure 2, it has been observed that W8A8 quantization does not work as the number of parameters increases. The reason behind this is that systematic outliers emerge in activations when LLMs are scaled up beyond 6.7 billion parameters. </p><figure id="8db2289a-76d6-4f39-93fb-dd8b31a94e39" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%202.png"><img style="width:666px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%202.png"/></a></figure><p id="e9236990-18cf-4fd8-be3d-4e416f6ad0dc" class=""><strong>Figure 3 [2]: shows the systematic outliers happening in LLM (OPT-13B).</strong></p><p id="99bb529d-afb5-450d-aec2-bd154390be07" class="">
+</p><p id="5fc789b5-a431-47c1-8b40-2e1b9f64a318" class="">In Figure 3, it can be seen that certain channels have much higher activation values (magnitudes, greater than 70), however, the weight distribution is flat and uniform (between 0 and 1). Such higher dynamic ranges for activation make it difficult to quantize activations, however, weights are very easy to quantize. </p><figure id="61152a65-6a5d-4fef-9a79-9e0e84a4a8c7" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%203.png"><img style="width:1808px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%203.png"/></a></figure><p id="3642c9c7-0767-4bf0-9576-41bcd7208167" class=""><strong>Figure 4 [2]: (a): Scaling down activations and scaling up the weights, (b): Scaling factor and output calculations</strong></p><p id="ab120180-f0d6-48f5-a0eb-d38390a3e700" class="">
+</p><p id="1850cc5e-7756-4519-acef-4530bf3c7055" class="">Figure 4, shows how the smoothQuant technique deals with it. It scales down the activation, and scales by the weight so that the overall effect cancels out, which now makes activations easier to quantize. The scaling parameter now reduces the range of activations, which makes them easier to quantize in comparison to the Figure 3 range. Weight values are slightly increased (for the same channels), but still, weights can also be quantized. </p><figure id="5c22c160-8ccc-4b02-aad7-f48675643bb7" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%204.png"><img style="width:608px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%204.png"/></a></figure><p id="dc5c6ee1-2fb2-4198-a1a9-b1960be462af" class=""><strong>Figure 5 [2]: Green Layers (INT 8) quantized, yellow layers (FP16). All compute-intensive operators quantized </strong></p><p id="7230907e-b7d2-4068-b835-5597c733a1e5" class="">
+</p><p id="0b8e7fa3-bdb7-47ed-9ee6-08c496ad2947" class="">Figure 5 shows which were the layers quantized using SmoothQuant (W8A8)</p><figure id="b926caa9-c25a-4e93-89df-4ce123f4e649" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%205.png"><img style="width:1288px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%205.png"/></a></figure><p id="ca34c85b-be09-4261-ad77-b5352659374d" class=""><strong>Figure 6 (a): Latency, (b): Memory footprint for OPT-175B</strong></p><p id="10eee098-f27d-453e-b5d7-8b64917dadf0" class="">
+</p><p id="6b27eeac-bc50-4e8e-8216-e0f2ea0c8f29" class="">Figure 6, shows that the method worked well in terms of maintaining accuracy without fine-tuning, accelerated inference, and reduced the memory footprints to half for the OPT-175B model. For the MT-NLG 530B model, it was observed that it reduced the no of GPUs from 16 (for FP16) to 8 (for INT8) at a similar latency. </p><p id="dac3276f-f13e-4193-8ec5-b81b270f4fa2" class="">
+</p><h3 id="87c50f76-159d-4654-bc82-c04f54dc715f" class="">Challenges of the SmoothQuant PTQ Method</h3><p id="78ea3b47-2004-4fd5-be3c-27c99df08f0e" class="">
+</p><figure id="73dd7c7a-7b72-4cfa-9135-0f9394f77954" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%206.png"><img style="width:1634px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%206.png"/></a></figure><p id="2c8cc5e9-eca0-468f-85e7-66a97a8b55fc" class=""><strong>Figure 7 (a): Roofline Model  (Performance (GFLOPs/sec) vs Operational Intensity (Flops/byte)), (b): Example showing the downside of SmoothQuant method for single-query (batch size = 1) LLM inference over A100 GPU, LLaMA-65B model (highly memory bounded)</strong></p><p id="6ecef40a-c521-4df1-8949-bcab4ded67f5" class="">
+</p><p id="88346f93-9011-4fbb-8f01-f1692c85e418" class="">According to Figure 7 (b), the technique works well for the batch serving (tested on a batch size of 128, LLaMA-65B model), however for a single-query LLM Inference, the method is still memory-bounded. According to Figure 7 (b), it is memory-bounded, because if there are 65 billion parameters, at fp16, for a single query inference (generating a single token), it requires access to 130 GB of memory. </p><p id="9aa418fe-c031-41cd-9194-7da4cd2f7abc" class="">
+</p><p id="6de30d94-c8ce-4bcc-8732-ae56c5187071" class=""><strong>To put things in perspective, for A100 GPU:</strong></p><ol type="1" id="a5026df7-284b-4c6e-81d5-9e7a01c1226b" class="numbered-list" start="1"><li>There are 108 Streaming multiprocessors (SMs)</li></ol><ol type="1" id="6ef11047-45c2-4366-8f4b-6a0a7dc32d78" class="numbered-list" start="2"><li>Each SM can request 64 bytes of memory per clock cycle.</li></ol><ol type="1" id="d3d783ae-ddbc-4970-8c77-425014b57bb0" class="numbered-list" start="3"><li>Each SM can run at 1410 MHz.</li></ol><ol type="1" id="6d363994-4bf8-4116-b505-df54723cfaae" class="numbered-list" start="4"><li>Therefore, in 1 second, the peak memory request can be: 64 bytes * 108 SMs * 1410 MHz = 9750 GB/sec. </li></ol><ol type="1" id="b91c8b20-eabc-4dc9-ab5b-ea6fb3f383ae" class="numbered-list" start="5"><li>A100 has a memory bandwidth of 1555 Gb/sec, which means that data request is 6.7x times the memory bandwidth. </li></ol><ol type="1" id="500dcfd3-b822-4983-a18e-a1cd7841edaf" class="numbered-list" start="6"><li><strong>SmoothQuant is Memory Bounded for inference of batch size of 1:</strong> In scenarios, where data is not accessed with peak memory request, the number of accesses increases. Such is a scenario for single-size batch inference. Therefore, it’s shown in Figure 7 (b), that the smaller the batch size, the higher is the memory bound (Figure 7(a))</li></ol><h1 id="0541c462-07a7-4d23-b4f1-d4228a9f0dcb" class="">PTQ Method 2 for LLMs: Activation-aware Weight Quantization (AWQ)</h1><p id="f1ebccd5-d0ad-437f-a60b-c49e9fa0a059" class="">
+</p><figure id="bc45c27d-57ef-4005-b4fd-d7d85bde3d96" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%207.png"><img style="width:1402px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%207.png"/></a></figure><p id="842d024c-e855-469e-979c-550437e0874a" class=""><strong>Figure 8: (a): changing weights from FP16 to INT3. (b): Perplexity degraded on OPT-6.7B Wiki-2</strong></p><p id="22270745-c71e-4925-9134-a067918d5dcf" class="">
+</p><p id="0d23daab-b918-4550-ba3b-eea50a247ada" class="">In AWQ [3], weights are quantized to INT4 or INT3. Activations are left at FP16. This is because, for a single batch, activations would be much smaller (vector) in comparison to the weights (matrix), and thus it makes sense to quantize weights. Quantizing weights leads to a reduction in the memory requirements and accelerates the token generation process. For example, if for 7 billion prameters, if we want to fetch the weights saved at FP16, that would be 7 billion * 2 bytes (2 bytes for FP16) = 14 GB of memory. However, at INT4 this will reduce to only 3.5 GB (INT4 is 0.5 bytes). However, by reducing all weights to INT4 it was observed that the perplexity score went up (Figure 8(a &amp; b), the lower the better). </p><figure id="5b4f59fc-587c-477b-b9be-13d203cbf83a" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%208.png"><img style="width:1408px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%208.png"/></a></figure><p id="ae690565-fa07-4d12-86d9-523bd354fc93" class=""><strong>Figure 9: (a): Mixed precision weights (1% salient weights kept at FP16), (b): Preplexity reduced again after mixed precision. </strong></p><p id="6655959d-fb52-402b-8641-b782e6bb3024" class="">
+</p><h3 id="ebbc9942-f74c-41ee-a308-d7bca59b6d89" class=""><strong>How to Select Salient Weights? </strong></h3><p id="14d4918f-a18d-4b43-947a-aa45792742f6" class="">The authors came up with an idea of mixed-precision quantization of weights, where only 1% of the weights were kept at FP16 and the rest were reduced to either INT4 or INT3. The 1% weights, which were kept at FP16 were the salient/most important weights. The saliency was determined based on the value of activations. For example, in the outlier channels (where the activations were outlier), the weight of the corresponding channel was important and should be included in 1% and that is called activation aware weight quantization in the paper. This led to an instant reduction on the perplexity as shown in Figure 9 (a &amp; b). Therefore, the authors looked for the activation distribution, for selecting 1% of salient weight values. </p><h3 id="90c1365b-3cbc-488c-9643-657d65f3d4ef" class=""><strong>Can we get rid of mixed-precision? </strong></h3><p id="fefdb6bf-1e40-46ae-a629-f92a2911a34c" class="">Mixed precision is not hardware efficient, as it makes the system implementation difficult. Therefore, the requirement was to protect the important weights without actually keeping them as FP16. </p><p id="9155a5a1-5014-4e7f-a494-085ce4276c61" class="">Protecting Salient Weights by Activation-aware Scaling:</p><ol type="1" id="a239c3b4-9d9e-4bff-82dc-74522d127314" class="numbered-list" start="1"><li>Consider a linear operator: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">y</mi><mo>=</mo><mi mathvariant="bold">w</mi><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf{y}=\mathbf{w}\mathbf{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord mathbf">wx</span></span></span></span></span><span>﻿</span></span></li></ol><ol type="1" id="5130190b-1905-4fec-9193-9d065ec09550" class="numbered-list" start="2"><li>Its quantized counterpart is: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">y</mi><mo>=</mo><mi>Q</mi><mo stretchy="false">(</mo><mi mathvariant="bold">w</mi><mo stretchy="false">)</mo><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf{y} = Q(\mathbf{w})\mathbf{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathbf" style="margin-right:0.01597em;">w</span><span class="mclose">)</span><span class="mord mathbf">x</span></span></span></span></span><span>﻿</span></span></li></ol><ol type="1" id="166dac28-39b9-4c41-ad32-d9c33500b1ff" class="numbered-list" start="3"><li>The quantization <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi mathvariant="bold">w</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Q(\mathbf{w})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathbf" style="margin-right:0.01597em;">w</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> is given as: </li></ol><figure id="0ecfeac5-3828-403d-9889-a0bdb8e7413f" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.16em" columnspacing="1em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi mathvariant="bold">w</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">Δ</mi><mi mathvariant="normal">.</mi><mi>R</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mo stretchy="false">(</mo><mfrac><mi mathvariant="bold">w</mi><mi mathvariant="normal">Δ</mi></mfrac><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+Q(\mathbf{w}) &amp; =   \Delta.Round(\frac{\mathbf{w}}{\Delta})\\                       
+\end{split}
+\end{equation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.1074em;vertical-align:-0.8037em;"></span><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3037em;"><span style="top:-3.3037em;"><span class="pstrut" style="height:3.3037em;"></span><span class="mord"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3037em;"><span style="top:-3.3037em;"><span class="pstrut" style="height:3.1214em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathbf" style="margin-right:0.01597em;">w</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8037em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3037em;"><span style="top:-3.3037em;"><span class="pstrut" style="height:3.1214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">Δ.</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">o</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8037em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8037em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3037em;"><span style="top:-3.3037em;"><span class="pstrut" style="height:3.3037em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8037em;"><span></span></span></span></span></span></span></span></span></div></figure><p id="b1e9cc1a-97ba-4398-9ca8-29524475a473" class="">where </p><figure id="d0c0e4dc-b2db-442c-9d52-6518ff3f1be8" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.16em" columnspacing="1em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi mathvariant="normal">Δ</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mfrac><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi mathvariant="bold">w</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><msup><mn>2</mn><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msup></mfrac></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+\Delta &amp; =   \frac{\max(|\mathbf{w}|)}{2^{N-1}}\\                       
+\end{split}
+\end{equation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.413em;vertical-align:-0.9565em;"></span><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4565em;"><span style="top:-3.4565em;"><span class="pstrut" style="height:3.4565em;"></span><span class="mord"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4565em;"><span style="top:-3.4565em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord">Δ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9565em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4565em;"><span style="top:-3.4565em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7673em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">max</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathbf" style="margin-right:0.01597em;">w</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9565em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9565em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4565em;"><span style="top:-3.4565em;"><span class="pstrut" style="height:3.4565em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9565em;"><span></span></span></span></span></span></span></span></span></div></figure><p id="219ba246-b878-4630-8261-fd569a7d91a3" class="">From equations 1, and 2, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span><span>﻿</span></span> is the number of quantization bits, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi></mrow><annotation encoding="application/x-tex">\Delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span></span><span>﻿</span></span> is the quantization scaler determined by the absolute maximum value. Now consider a weight element <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>∈</mo><mi mathvariant="bold">w</mi></mrow><annotation encoding="application/x-tex">w \in \mathbf{w}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span></span></span></span><span>﻿</span></span>. In equation 1, multiply <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">w</mi></mrow><annotation encoding="application/x-tex">\mathbf{w}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span></span></span></span><span>﻿</span></span> with <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s&gt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span> and the inversely scale x, we will have:</p><figure id="27c67c81-2e08-4a68-b98d-a010412c61b1" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.16em" columnspacing="1em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>w</mi><mi mathvariant="normal">.</mi><mi>s</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi><mfrac><mi>x</mi><mi>s</mi></mfrac></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mi mathvariant="normal">Δ</mi><msup><mrow></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msup><mi mathvariant="normal">.</mi><mi>R</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>w</mi><mi>s</mi></mrow><mi mathvariant="normal">Δ</mi></mfrac><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi><mi>x</mi><mi mathvariant="normal">.</mi><mfrac><mn>1</mn><mi>s</mi></mfrac></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+Q(w.s).\frac{x}{s} &amp; =   \Delta^{&#x27;}.Round(\frac{ws}{\Delta}).x.\frac{1}{s}\\                       
+\end{split}
+\end{equation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.3074em;vertical-align:-0.9037em;"></span><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4037em;"><span style="top:-3.4037em;"><span class="pstrut" style="height:3.4037em;"></span><span class="mord"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4037em;"><span style="top:-3.4037em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord">.</span><span class="mord mathnormal">s</span><span class="mclose">)</span><span class="mord">.</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">s</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9037em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4037em;"><span style="top:-3.4037em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord">Δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9925em;"><span style="top:-2.9925em;margin-right:0.05em;"><span class="pstrut" style="height:2.5795em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">o</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mord">.</span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">s</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9037em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9037em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4037em;"><span style="top:-3.4037em;"><span class="pstrut" style="height:3.4037em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9037em;"><span></span></span></span></span></span></span></span></span></div></figure><p id="c1aadfb3-45cc-493a-aacf-fe1826b9c325" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="normal">Δ</mi><msup><mrow></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msup></mrow><annotation encoding="application/x-tex">\Delta^{&#x27;}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9425em;"></span><span class="mord"><span class="mord">Δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9425em;"><span style="top:-2.9425em;margin-right:0.05em;"><span class="pstrut" style="height:2.5795em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the new quantization scaler after applying s. Empirically, the authors observed the following:</p><ul id="f0a3c9be-10e0-4e45-98cd-e040c8859780" class="bulleted-list"><li style="list-style-type:disc">expected error from Round(.) is always ~0.25 since round error is uniformly distributed from 0-0.5. </li></ul><ul id="727a5c25-5a93-4c65-8e96-d93785ea80fa" class="bulleted-list"><li style="list-style-type:disc">Scaling up a single element w usually does not change the extreme value from the group <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">w</mi></mrow><annotation encoding="application/x-tex">\mathbf{w}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">w</span></span></span></span></span><span>﻿</span></span>. Therefore <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="normal">Δ</mi><msup><mrow></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msup><mo>≡</mo><mi mathvariant="normal">Δ</mi></mrow><annotation encoding="application/x-tex">\Delta^{&#x27;} \equiv \Delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9425em;"></span><span class="mord"><span class="mord">Δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9425em;"><span style="top:-2.9425em;margin-right:0.05em;"><span class="pstrut" style="height:2.5795em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span></span><span>﻿</span></span> </li></ul><ul id="9a13046b-ad36-42de-a813-26ea98e8d25c" class="bulleted-list"><li style="list-style-type:disc">when <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s&gt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>, the quantization error is scaled down (from Equation 3). </li></ul><ol type="1" id="653e71c5-1e3e-40da-a0db-e262bdc8db07" class="numbered-list" start="4"><li>From all the points above, it can be derived that if scaling up the most salient weight channel is equivalent of preserving it (as happened in mixed precision, Figure 9). Therefore we can instead of working with <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi mathvariant="bold">W</mi><mi mathvariant="bold">X</mi></mrow><annotation encoding="application/x-tex">y =\mathbf{W}\mathbf{X}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">WX</span></span></span></span></span><span>﻿</span></span>, we can write, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi mathvariant="bold">W</mi><mi mathvariant="normal">.</mi><mi mathvariant="bold">s</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi mathvariant="bold">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="normal">.</mi><mi mathvariant="bold">X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Q(\mathbf{W}.\mathbf{s})(\mathbf{s}^{-1}.\mathbf{X})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathbf" style="margin-right:0.01597em;">W</span><span class="mord">.</span><span class="mord mathbf">s</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathbf">X</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</li></ol><ol type="1" id="a23dc569-9276-4a7f-8fd9-af1a5eac4b28" class="numbered-list" start="5"><li>Formally, the objective becomes:</li></ol><figure id="0aad7c54-6600-4200-99b4-88ea37f6188d" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.16em" columnspacing="1em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi>s</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>a</mi><mi>r</mi><mi>g</mi><mtext> </mtext><mi>m</mi><mi>i</mi><mi>n</mi><mtext> </mtext><mi>L</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>Q</mi><mo stretchy="false">(</mo><mi mathvariant="bold">W</mi><mi mathvariant="normal">.</mi><mi mathvariant="bold">s</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi mathvariant="bold">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="normal">.</mi><mi mathvariant="bold">X</mi><mo stretchy="false">)</mo><mo>−</mo><mi mathvariant="bold">W</mi><mi mathvariant="bold">X</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+s^{*} &amp;= arg \:min\:  L(s) \\
+
+                        &amp;=  
+    ||Q(\mathbf{W}.\mathbf{s})(\mathbf{s}^{-1}.\mathbf{X}) - \mathbf{W}\mathbf{X}||\\
+ 
+\end{split}
+\end{equation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.0241em;vertical-align:-1.2621em;"></span><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7621em;"><span style="top:-3.7621em;"><span class="pstrut" style="height:3.7621em;"></span><span class="mord"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7621em;"><span style="top:-3.9221em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.3979em;"><span class="pstrut" style="height:3em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2621em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7621em;"><span style="top:-3.9221em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">min</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span><span style="top:-2.3979em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">∣∣</span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathbf" style="margin-right:0.01597em;">W</span><span class="mord">.</span><span class="mord mathbf">s</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathbf">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathbf">WX</span><span class="mord">∣∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2621em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2621em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7621em;"><span style="top:-3.7621em;"><span class="pstrut" style="height:3.7621em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2621em;"><span></span></span></span></span></span></span></span></span></div></figure><ul id="074091f3-b236-443d-970d-c5ad98dfa831" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span></span></span></span></span><span>﻿</span></span> : Weight quantization function (e.g, INT3/INT4 quantization). Not directly differentiable during back prop. </li></ul><ul id="5600c014-e1f1-4e94-aad0-cc1a11d3a2cc" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">W</mi></mrow><annotation encoding="application/x-tex">\mathbf{W}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">W</span></span></span></span></span><span>﻿</span></span>: Original weights in FP16</li></ul><ul id="0e536879-2c7a-45c8-bf58-8a3203df850f" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">X</mi></mrow><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">X</span></span></span></span></span><span>﻿</span></span>: Input features cached from a small calibration set</li></ul><ul id="7aa5b7e1-7a7f-4ac9-96cc-35f22deba9d5" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span></span><span>﻿</span></span>: Scaling factor</li></ul><ul id="51d0c809-78fd-409f-93b2-dc1cb87eddab" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="normal">.</mi><mi mathvariant="bold">X</mi></mrow><annotation encoding="application/x-tex">s^{-1}.\mathbf{X}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathbf">X</span></span></span></span></span><span>﻿</span></span>: to be fused into the previous operator</li></ul><p id="379ae109-5941-4f6e-97ea-aa02fcb5ee5f" class="">In equation 4, the optimization objective is to find the scaling factor s that minimizes the difference between the quantized model and the original model’s output. Since the quantization function is non-differentiable, s cannot be optimized by backpropagation, however, a search space can be defined for the optimal scale by analyzing the factors that will affect the choice of scaling factor. Therefore s is defined as:</p><figure id="3d70454d-117f-4f64-b019-7ddfcc0bc271" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.16em" columnspacing="1em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi>s</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msubsup><mi>s</mi><mi mathvariant="bold">X</mi><mi>α</mi></msubsup></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+s^{*} &amp;= s_{\mathbf{X}}^{\alpha}
+ 
+\end{split}
+\end{equation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5em;vertical-align:-0.5em;"></span><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1em;"><span style="top:-3.16em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1em;"><span style="top:-3.16em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathbf mtight">X</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5em;"><span></span></span></span></span></span></span></span></span></div></figure><p id="147c7257-d915-4c3d-9802-b93dda568aeb" class="">In equation 5, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi mathvariant="bold">X</mi></msub></mrow><annotation encoding="application/x-tex">s_{\mathbf{X}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3303em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathbf mtight">X</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the magnitude of the activation, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span><span>﻿</span></span> is the single hyper-parameter to balance between the protection of salient and non-salient channels. The best <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span><span>﻿</span></span> can be found out by a fast grid search over the interval of [0,1] (0 means no scaling, 1 means aggressive scaling). </p><h1 id="a74ced51-bf7a-432c-b300-93994b80d9be" class="">SOTA <strong>Results</strong></h1><p id="5e513eec-1fc9-4385-82da-a6c6ee103157" class="">
+</p><figure id="bbbb51c1-6dc5-488c-896a-57d5996d36cf" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%209.png"><img style="width:682px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%209.png"/></a></figure><p id="4c5a32fa-4a4c-4b92-9a88-5bacfb47213a" class=""><strong>Figure 10 [3]: Effect of various scaling factors (s&gt;1) on perplexity (OPT-6.7B model, Wiki-2 data)</strong></p><p id="6c277de2-e015-4199-9464-3f9e88990df3" class="">
+</p><p id="674dfc76-b2d9-4606-8139-4846f806d91b" class="">As can be seen in Figure 10, the author tried different scaling factors and found out that by searching over the scaling factor for search space, that scaling factor value of 2 reduced perplexity the most, increasing it again to 4 again led to degradation of perplexity</p><figure id="cba42f41-9b45-4522-a218-7ab563a12a1b" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2010.png"><img style="width:705px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2010.png"/></a></figure><p id="9212f8fa-37c6-453d-bd2e-d651ced41ea1" class=""><strong>Figure 11 [3]: AWQ improved (lowest perplexity) over all SOTA PTQ methods for different model sizes and INT3, INT4 low bit precision</strong></p><p id="286ac5ca-d723-4675-9c6b-2042408c972f" class="">
+</p><p id="3b96bb43-dd93-44a0-a350-fc2e7b951830" class="">From Figure 11, both INT3 and INT4, the AWQ is performing the best in terms of the perplexity ( Llama-2, LLaMA ) in comparison to the previous state-of-the-art architecture (RTN and GPTQ [4]). </p><figure id="a0f34490-0186-4d93-adb3-04859032903c" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2011.png"><img style="width:916px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2011.png"/></a></figure><p id="ead9bdb2-745c-4a49-9688-d12fb788c573" class=""><strong>Figure 12[3]: (a): Quantization results of a visual language model OpenFlamingo-9B [5] on COCO Captioning datasets, (b): Qualitative results of quantized OpenFlamingo-9B [5] on COCO captioning dataset (4-shot, INT4-g128 quantization). </strong></p><p id="8564a7b7-549a-42f2-b567-c1fc7c56846c" class="">
+</p><p id="799ba7f8-bd27-4060-a5dc-86bf2d9b73ea" class="">From Figure 12 (a &amp; b), quantization and qualitative results are shown for OpenFlamingo-9B on COCO captioning datasets. AWQ outperforms existing methods under zero-shot and various few-shot settings, demonstrating the generability to different modalities and in-context learning workloads. It reduces the quantization degradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4× model size reduction with negligible performance loss. Qualitatively (Figure 12 (b)), it can be seen that AWQ gave better captions. For image 12(b), two dogs walking on the street is given as a caption whereas W4-RTN gave the wrong caption (it talks about the bushes). </p><h3 id="6506e534-e151-4f51-9a0a-e13370ee889b" class=""><strong>Speedup Evaluation</strong></h3><figure id="4d56aa65-693d-4e89-8864-ba6239c90be1" class="image"><a href="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2012.png"><img style="width:833px" src="DLQuantization%20Blog%20a3e40f1038084d76977271463dff306d/Untitled%2012.png"/></a></figure><p id="45881e89-aaca-4c1f-8ac2-d98b01edda49" class=""><strong>Figure 13: AWQ speed comparison (in terms of tokens/sec) with respect to FP16 model (from HuggingFace) on three different devices. AWQ offered up to 3.9x to 3.5x speed up. </strong></p><p id="6041ca70-d20e-402e-a8f0-914c986cf200" class="">
+</p><p id="562fad2d-6a8b-4af7-af42-b3af764ce292" class="">The speedup was evaluated for AWQ on RTX 4090 (desktop GPU), RTX 4070 (laptop GPU), and Jetso Orin mobile GPU. For batch size = 1, the inference was performed for all LLMs using a fixed prompt length of 4 tokens. 200 tokens were generated for each inference run and the median latency was calculated. Figure 13, shows a 2.7-3.9x speedup to three families of LLMs (Llama-2, MPT, and Falcon) on 4090 compared with HuggingFace FP16 implementation. </p><p id="1dc4dc4a-c027-4980-9d71-7893b5a379ce" class="">
+</p><p id="116b332e-03b2-46a7-bae4-a5288da57c82" class="">
+</p><p id="07c379fd-6b46-4581-940d-341b5a9ee3e8" class="">
+</p><p id="5281d2b3-7c63-4f10-ac32-78066d74fe20" class="">Demo on perplexity over 1.7b parameter model</p><figure id="ac6aee4d-6eba-4b81-9890-9c68ae9b6a45"><div class="source"><a href="https://rakesh9177-quantization.hf.space">https://rakesh9177-quantization.hf.space</a></div></figure><p id="54cd886f-a31b-4093-a763-f758004aeb1a" class="">
+</p><h1 id="e9070b84-9d3d-4d87-abab-0ca6e0e9c508" class="">References</h1><p id="332e0e59-590e-42fd-9034-0aa79918c2fe" class="">[1] <strong>Roofline: An Insightful Visual Performance Model for Multicore Architectures</strong></p><p id="fd87939c-b535-4abf-834f-42bfbfb8a5ed" class="">[2] Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., &amp; Han, S. (2023, July). Smoothquant: Accurate and efficient post-training quantization for large language models. In <em>International Conference on Machine Learning</em> (pp. 38087-38099). PMLR.</p><p id="11c119c4-9d7f-4197-914d-cca58ca74ffc" class="">[3] Lin, J., Tang, J., Tang, H., Yang, S., Dang, X., &amp; Han, S. (2023). AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration. <em>arXiv preprint arXiv:2306.00978</em>.</p><p id="5e9fda6e-3c03-4993-b4d4-ec67e97a4b1b" class="">[4] Elias Frantar, Saleh Ashkboos, Torsten Hoefler, and Dan Alistarh. Gptq: Accurate post-training quantization for generative pre-trained transformers. arXiv preprint arXiv:2210.17323, 2022.</p><p id="4e1b0ebf-4a7d-4c09-b4c2-44c277a6b44b" class="">[5] Anas Awadalla, Irena Gao, Joshua Gardner, Jack Hessel, Yusuf Hanafy, Wanrong Zhu, Kalyani Marathe, Yonatan Bitton, Samir Gadre, Jenia Jitsev, Simon Kornblith, Pang Wei Koh, Gabriel Ilharco, Mitchell Wortsman, and Ludwig Schmidt. Openflamingo, March 2023.</p><p id="ccec0c6a-6cb7-4777-8bbe-ff7847bcee8d" class="">[6] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing systems, 30, 2017.</p><p id="c15e5c1d-9234-4161-9a4a-da1689a5efe3" class="">[7] <a href="https://arxiv.org/pdf/1712.05877.pdf">https://arxiv.org/pdf/1712.05877.pdf</a></p><p id="791e2dfe-98d9-4667-ac7d-0fab3bbb6dba" class="">[8] <a href="https://pytorch.org/docs/stable/quantization.html">https://pytorch.org/docs/stable/quantization.html</a></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
